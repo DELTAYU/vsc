@@ -46,16 +46,16 @@ class _AccountScreenState extends State<AccountScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-              SizedBox(
+              const SizedBox(
                 width: double.infinity,
                 child: Row(
                   children: [
-                    const SizedBox(width: 20),
-                    const Column(
+                    SizedBox(width: 20),
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Uranus Code",
+                          "Artex account",
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vsc/auth/login_or_register.dart';
-
 import 'package:vsc/themes/theme_provider.dart';
 
 void main() {
