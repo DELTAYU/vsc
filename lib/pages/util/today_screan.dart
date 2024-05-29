@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:slide_to_act/slide_to_act.dart';
-import 'package:vsc/pages/util/atendence.dart';
+
+import 'package:vsc/componenets/constants.dart';
+import 'package:vsc/pages/util/teamlist.dart';
 
 class TodayScreen extends StatefulWidget {
   const TodayScreen({Key? key}) : super(key: key);
@@ -14,7 +14,9 @@ class _TodayScreenState extends State<TodayScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: gradientEnd2,
       appBar: AppBar(
+        backgroundColor: gradientEnd2,
         title: Text('Today'),
       ),
       body: SingleChildScrollView(
@@ -118,64 +120,6 @@ class _TodayScreenState extends State<TodayScreen> {
                 ],
               ),
             ),
-            Container(
-              alignment: Alignment.centerLeft,
-              child: RichText(
-                  text: TextSpan(
-                      text: DateTime.now().day.toString(),
-                      style: const TextStyle(
-                        fontFamily: "NexaBold",
-                        fontSize: 24,
-                        color: Colors.red,
-                      ),
-                      children: [
-                    TextSpan(
-                      text: DateFormat(' MMMM yyyy').format(DateTime.now()),
-                      style: const TextStyle(
-                        fontFamily: "NexaBold",
-                        fontSize: 22,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ])),
-            ),
-            StreamBuilder(
-                stream: Stream.periodic(const Duration(seconds: 1)),
-                builder: (context, snapshot) {
-                  return Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      DateFormat('hh:mm:ss a').format(DateTime.now()),
-                      style: TextStyle(
-                        fontFamily: "NexaRegular",
-                        fontSize: 20,
-                        color: Colors.black54,
-                      ),
-                    ),
-                  );
-                }),
-            Container(
-              margin: EdgeInsets.only(top: 24),
-              child: Builder(
-                builder: (context) {
-                  final GlobalKey<SlideActionState> key = GlobalKey();
-                  return SlideAction(
-                    text: "Slide to Check Out",
-                    textStyle: TextStyle(
-                      color: Colors.black54,
-                      fontFamily: "NexaRegular",
-                      fontSize: 20,
-                    ),
-                    outerColor: Colors.white,
-                    innerColor: Colors.redAccent,
-                    key: key,
-                    onSubmit: () {
-                      return null;
-                    },
-                  );
-                },
-              ),
-            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: Padding(
@@ -194,7 +138,7 @@ class _TodayScreenState extends State<TodayScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const AttendanceScreen(),
+                              builder: (context) => const AttendancePage(),
                             ),
                           );
                         },
@@ -239,7 +183,7 @@ class _TodayScreenState extends State<TodayScreen> {
                           ),
                         ),
                         Text(
-                          ".........",
+                          "Louay",
                           style: TextStyle(
                             fontFamily: "NexaBold",
                             fontSize: 24,
@@ -261,7 +205,7 @@ class _TodayScreenState extends State<TodayScreen> {
                           color: Colors.black54,
                         ),
                       ),
-                      Text("--/-- ",
+                      Text("8/30- ",
                           style: TextStyle(
                             fontFamily: "NexaBold",
                             fontSize: 24,
@@ -281,7 +225,7 @@ class _TodayScreenState extends State<TodayScreen> {
                           color: Colors.black54,
                         ),
                       ),
-                      Text("--/-- ",
+                      Text("15/00 ",
                           style: TextStyle(
                             fontFamily: "NexaBold",
                             fontSize: 24,
@@ -323,7 +267,7 @@ class _TodayScreenState extends State<TodayScreen> {
                           ),
                         ),
                         Text(
-                          ".........",
+                          "Firas",
                           style: TextStyle(
                             fontFamily: "NexaBold",
                             fontSize: 24,
@@ -345,7 +289,7 @@ class _TodayScreenState extends State<TodayScreen> {
                           color: Colors.black54,
                         ),
                       ),
-                      Text("--/-- ",
+                      Text("9/00 ",
                           style: TextStyle(
                             fontFamily: "NexaBold",
                             fontSize: 24,
@@ -365,7 +309,7 @@ class _TodayScreenState extends State<TodayScreen> {
                           color: Colors.black54,
                         ),
                       ),
-                      Text("--/-- ",
+                      Text("14/50",
                           style: TextStyle(
                             fontFamily: "NexaBold",
                             fontSize: 24,

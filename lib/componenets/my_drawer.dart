@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:vsc/componenets/goodbye.dart';
 import 'package:vsc/componenets/my_drawer_tile.dart';
+import 'package:vsc/pages/TeamPage.dart';
+import 'package:vsc/componenets/constants.dart';
+import 'package:vsc/pages/util/camera_live.dart';
+import 'package:vsc/pages/util/manegement.dart';
 
-import 'package:vsc/pages/util/acount.dart';
-import 'package:vsc/pages/util/list_view.dart';
+import 'package:vsc/pages/util/settting.dart';
+import 'package:vsc/pages/util/static.dart';
+import 'package:vsc/pages/util/teamlist.dart';
 
 import 'package:vsc/pages/util/today_screan.dart';
 
@@ -12,7 +19,7 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: secondaryColor,
       child: Column(
         children: [
           //app logo
@@ -21,7 +28,7 @@ class MyDrawer extends StatelessWidget {
             child: Icon(
               Icons.lock_open_rounded,
               size: 80,
-              color: Theme.of(context).colorScheme.inversePrimary,
+              color: Colors.white,
             ),
           ),
           Padding(
@@ -46,19 +53,55 @@ class MyDrawer extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const ListViewBuilder(),
+                    builder: (context) => TeamPage(),
                   ),
                 );
               }),
           MyDrawerTile(
-              text: "A T T E N D A N C E",
-              icon: Icons.stacked_bar_chart,
+              text: "C A M E R A  H I S T O R Y",
+              icon: Icons.camera,
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const TodayScreen(),
+                    builder: (context) => const AttendancePage(),
+                  ),
+                );
+              }),
+          MyDrawerTile(
+            text: "A T T E N D A N C E",
+            icon: Icons.check,
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => WorkerPage(),
+                  ));
+            },
+          ),
+          MyDrawerTile(
+              text: "M A N A G E M E N T",
+              icon: Icons.manage_history,
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Management(),
+                  ),
+                );
+              }),
+          MyDrawerTile(
+              text: "C A M E R A  L I V E",
+              icon: Icons.live_tv,
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FlaskPage(),
                   ),
                 );
               }),
@@ -70,14 +113,29 @@ class MyDrawer extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const AccountScreen(),
+                    builder: (context) => const SettingsPage1(),
                   ));
             },
           ),
 
           const Spacer(),
           //logout list tile
-          MyDrawerTile(text: "L O G O U T", icon: Icons.logout, onTap: () {}),
+          MyDrawerTile(
+              text: "LOGOUT",
+              icon: Icons.logout,
+              onTap: () {
+                // Sign out Google user
+                // Add code to sign out from Supabase here if needed
+                Navigator.pop(context); // Close the drawer
+                Navigator.pushReplacement(
+                  // Navigate to the GoodBye screen
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const GoodBye(),
+                  ),
+                );
+              }),
+
           const SizedBox(height: 25),
         ],
       ),

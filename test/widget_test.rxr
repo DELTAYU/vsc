@@ -1,0 +1,162 @@
+
+@override
+  void initState() {
+    super.initState();
+    _checkAttendanceStatus();
+  }
+
+  Future<void> _checkAttendanceStatus() async {
+    // Fetch attendance status from Supabase where unknown is false
+    final supabaseClient = supabase.SupabaseClient(
+        'https://mhfnttlxzmusbqdnyuum.supabase.co',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1oZm50dGx4em11c2JxZG55dXVtIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcwNzMzMjM2MywiZXhwIjoyMDIyOTA4MzYzfQ.KUkkkp6nutcdt_t2LFvcYbHeE9xsW5wywzxT6qd51kM');
+    final attendanceData = await supabaseClient
+        .from('attendance')
+        .select('known')
+        .eq('known', false)
+        .single();
+
+    if (attendanceData != null && attendanceData['known'] == false) {
+      setState(() {
+        _hasAttendanceFalse = true;
+      });
+
+      // Fetch camera feed image URL where unknown is false
+      final cameraFeedData = await supabaseClient
+          .from('attendance')
+          .select('camera_log_picture')
+          .eq('known', false)
+          .single();
+      if (cameraFeedData != null) {
+        setState(() {
+          _cameraFeedImageUrl = cameraFeedData['camera_log_picture'];
+        });
+      }
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: primaryColor,
+      appBar: AppBar(
+        backgroundColor: primaryColor,
+      ),
+      drawer: MyDrawer(),
+      drawerScrimColor: primaryColor,
+      body: Column(
+        children: [
+          Container(
+            color: primaryColor,
+            height: 150,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                RichText(
+                  text: TextSpan(
+                    text: "ARTEX",
+                    style: GoogleFonts.ubuntu(
+                      color: Colors.white54,
+                      fontSize: 30,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: "APP",
+                        style: GoogleFonts.ubuntu(
+                          color: Colors.black54,
+                          fontSize: 30,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 20),
+                Text(
+                  'Welcome to ARTEX APP!',
+                  style: GoogleFonts.ubuntu(
+                    color: Colors.white,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 20),
+                Text(
+                  'Discover, collect, and trade digital assets.',
+                  style: GoogleFonts.ubuntu(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
+                ),
+              ),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: TextField(
+                      controller: _searchController,
+                      decoration: InputDecoration(
+                        hintText: 'Search for assets...',
+                        prefixIcon: Icon(Icons.search),
+                        filled: true,
+                        fillColor: Colors.grey[200],
+                        contentPadding: EdgeInsets.all(10),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
+                    ),
+                  ),
+                  TableCalendar(
+                    firstDay: _firstDay,
+                    lastDay: _lastDay,
+                    focusedDay: _focusedDay,
+                    selectedDayPredicate: (day) {
+                      return isSameDay(_selectedDay, day);
+                    },
+                    onDaySelected: (selectedDay, focusedDay) {
+                      setState(() {
+                        _selectedDay = selectedDay;
+                        _focusedDay = focusedDay;
+                      });
+                    },
+                    onFormatChanged: (format) {
+                      setState(() {
+                        _calendarFormat = format;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }

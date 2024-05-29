@@ -1,0 +1,7 @@
+{
+    "cmake.configureOnOpen": false,
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "search.useParentIgnoreFiles": true,
+    "search.useGlobalIgnoreFiles": true,
+    "dart.flutterSdkPath": "~/OneDrive/Desktop/flutter"
+}

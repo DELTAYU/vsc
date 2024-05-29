@@ -1,26 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:vsc/auth/login_or_register.dart';
-import 'package:vsc/themes/theme_provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:vsc/pages/TeamPage.dart';
+import 'package:vsc/pages/home_page.dart';
+import 'package:vsc/pages/login_page.dart';
+import 'package:vsc/pages/util/introductionscreen.dart';
+import 'package:vsc/pages/util/logintest.dart';
+import 'package:vsc/pages/util/test.dart';
 
-void main() {
-  runApp(ChangeNotifierProvider(
-    create: (context) => ThemeProvider(),
-    child: const MyApp(),
-  ));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Supabase.initialize(
+    url: 'https://mhfnttlxzmusbqdnyuum.supabase.co',
+    anonKey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1oZm50dGx4em11c2JxZG55dXVtIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcwNzMzMjM2MywiZXhwIjoyMDIyOTA4MzYzfQ.KUkkkp6nutcdt_t2LFvcYbHeE9xsW5wywzxT6qd51kM',
+  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const LoginOrRegister(),
+        home: IntroductionScreen(),
         //theme: Provider.of<ThemeProvider>(context).themeDate,
-
         theme: ThemeData(primarySwatch: Colors.red));
   }
 }
